@@ -1,0 +1,2 @@
+# nginx
+/opt/nginx
