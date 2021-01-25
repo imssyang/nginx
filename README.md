@@ -16,6 +16,7 @@ C:\Windows\System32\drivers\etc\hosts
 192.168.5.220    httpd.imssyang.com
 192.168.5.220    nginx.imssyang.com
 192.168.5.220    pgadmin.imssyang.com
+192.168.5.220    freeswitch.imssyang.com
 ipconfig /flushdns
 ```
 
