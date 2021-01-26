@@ -18,6 +18,14 @@ initialize() {
     useradd -r -g $GROUP -s /usr/sbin/nologin -M $USER
   fi
 
+  if [[ ! -d $HOME/log ]]; then
+    mkdir $HOME/log
+  fi
+
+  if [[ ! -d $HOME/run ]]; then
+    mkdir $HOME/run
+  fi
+
   if [[ ! -d $HOME/cache ]]; then
     mkdir $HOME/cache
   fi
@@ -29,13 +37,31 @@ initialize() {
     ln -s $HOME/setup/$SERFILE $SYSD/$SERFILE
     echo "($APP) create symlink: $SYSD/$SERFILE --> $HOME/setup/$SERFILE"
   fi
+
+  systemctl daemon-reload
 }
 
 deinitialize() {
+  if [[ -d $HOME/log ]]; then
+    rm -rf $HOME/log
+  fi
+
+  if [[ -d $HOME/run ]]; then
+    rm -rf $HOME/run
+  fi
+
+  if [[ -d $HOME/cache ]]; then
+    rm -rf $HOME/cache
+  fi
+
+  chown -R root:root $HOME
+
   if [[ -s $SYSD/$SERFILE ]]; then
     rm -rf $SYSD/$SERFILE
     echo "($APP) delete symlink: $SYSD/$SERFILE"
   fi
+
+  systemctl daemon-reload
 }
 
 daemon_start() {
@@ -44,6 +70,7 @@ daemon_start() {
 	systemctl start $SERFILE
     echo "($APP) $APP start!"
   fi
+
   daemon_show
 }
 
@@ -55,6 +82,7 @@ daemon_stop() {
     #kill -9 `pidof $APP`
     #echo "($APP) $APP stop! (auto restart when systemd)"
   fi
+
   daemon_show
 }
 
