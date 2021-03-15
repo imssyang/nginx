@@ -7,7 +7,7 @@ USER=$APP
 SYSD=/etc/systemd/system
 SERFILE=nginx.service
 
-initialize() {
+init() {
   egrep "^$GROUP" /etc/group >/dev/null
   if [[ $? -ne 0 ]]; then
     groupadd -r $GROUP
@@ -35,13 +35,14 @@ initialize() {
 
   if [[ ! -s $SYSD/$SERFILE ]]; then
     ln -s $HOME/setup/$SERFILE $SYSD/$SERFILE
+    systemctl enable $SERFILE
     echo "($APP) create symlink: $SYSD/$SERFILE --> $HOME/setup/$SERFILE"
   fi
 
   systemctl daemon-reload
 }
 
-deinitialize() {
+deinit() {
   if [[ -d $HOME/log ]]; then
     rm -rf $HOME/log
   fi
@@ -57,6 +58,7 @@ deinitialize() {
   chown -R root:root $HOME
 
   if [[ -s $SYSD/$SERFILE ]]; then
+    systemctl disable $SERFILE
     rm -rf $SYSD/$SERFILE
     echo "($APP) delete symlink: $SYSD/$SERFILE"
   fi
@@ -64,17 +66,17 @@ deinitialize() {
   systemctl daemon-reload
 }
 
-daemon_start() {
+start() {
   pgrep -x $APP >/dev/null
   if [[ $? != 0 ]]; then
 	systemctl start $SERFILE
     echo "($APP) $APP start!"
   fi
 
-  daemon_show
+  show
 }
 
-daemon_stop() {
+stop() {
   pgrep -x $APP >/dev/null
   if [[ $? == 0 ]]; then
     systemctl stop $SERFILE
@@ -83,34 +85,23 @@ daemon_stop() {
     #echo "($APP) $APP stop! (auto restart when systemd)"
   fi
 
-  daemon_show
+  show
 }
 
-daemon_show() {
+show() {
   ps -ef | grep $APP | grep -v 'grep'
 }
 
 case "$1" in
-  init)
-    initialize
-    ;;
-  deinit)
-    deinitialize
-    ;;
-  start)
-    daemon_start
-    ;;
-  stop)
-    daemon_stop
-    ;;
-  show)
-	daemon_show
-	;;
-  *)
-    SCRIPTNAME="${0##*/}"
-    echo "Usage: $SCRIPTNAME {init|deinit|start|stop|show}"
-    exit 3
-    ;;
+  init) init ;;
+  deinit) deinit ;;
+  start) start ;;
+  stop) stop ;;
+  show) show ;;
+  *) SCRIPTNAME="${0##*/}"
+     echo "Usage: $SCRIPTNAME {init|deinit|start|stop|show}"
+     exit 3
+     ;;
 esac
 
 exit 0
