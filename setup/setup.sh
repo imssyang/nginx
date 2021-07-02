@@ -22,12 +22,9 @@ init() {
     mkdir $HOME/log
   fi
 
-  if [[ ! -d $HOME/run ]]; then
-    mkdir $HOME/run
-  fi
-
-  if [[ ! -d $HOME/cache ]]; then
-    mkdir $HOME/cache
+  if [[ ! -d $HOME/var ]]; then
+    mkdir -p $HOME/var/run
+    mkdir -p $HOME/var/cache
   fi
 
   chown -R $GROUP:$USER $HOME
@@ -47,12 +44,8 @@ deinit() {
     rm -rf $HOME/log
   fi
 
-  if [[ -d $HOME/run ]]; then
-    rm -rf $HOME/run
-  fi
-
-  if [[ -d $HOME/cache ]]; then
-    rm -rf $HOME/cache
+  if [[ -d $HOME/var ]]; then
+    rm -rf $HOME/var
   fi
 
   chown -R root:root $HOME
