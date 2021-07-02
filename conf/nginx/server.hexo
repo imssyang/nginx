@@ -11,8 +11,8 @@ server {
     listen       443 ssl;
     server_name  hexo.imssyang.com blog.imssyang.com www.imssyang.com;
 
-    ssl_certificate     /opt/openssl/ssl/certs/letsencrypt/imssyang.com/fullchain.cer;
-    ssl_certificate_key /opt/openssl/ssl/certs/letsencrypt/imssyang.com/imssyang.com.key;
+    ssl_certificate     $ssl_cer;
+    ssl_certificate_key $ssl_key;
     ssl_ciphers         HIGH:!aNULL:!MD5;
     ssl_prefer_server_ciphers  on;
     ssl_session_cache   shared:SSL:1m;
