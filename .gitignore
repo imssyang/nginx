@@ -1,8 +1,7 @@
 archive
 bin
-cache
 lib
 log
 man
 modules
-run
+var

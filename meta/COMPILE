@@ -6,8 +6,8 @@ apt-get install libxslt-dev libgd-dev libgeoip-dev
   --modules-path=/opt/nginx/modules \
   --conf-path=/opt/nginx/conf/nginx.conf \
   --error-log-path=/opt/nginx/log/error.log \
-  --pid-path=/opt/nginx/run/nginx.pid \
-  --lock-path=/opt/nginx/run/nginx.lock \
+  --pid-path=/opt/nginx/var/run/nginx.pid \
+  --lock-path=/opt/nginx/var/run/nginx.lock \
   --user=nginx \
   --group=nginx \
   --with-select_module \
@@ -37,11 +37,11 @@ apt-get install libxslt-dev libgd-dev libgeoip-dev
   --with-perl_modules_path=/opt/perl \
   --with-perl=/opt/perl/bin/perl \
   --http-log-path=/opt/nginx/log/access.log \
-  --http-client-body-temp-path=/opt/nginx/cache/client_temp \
-  --http-proxy-temp-path=/opt/nginx/cache/proxy_temp \
-  --http-fastcgi-temp-path=/opt/nginx/cache/fastcgi_temp \
-  --http-uwsgi-temp-path=/opt/nginx/cache/uwsgi_temp \
-  --http-scgi-temp-path=/opt/nginx/cache/scgi_temp \
+  --http-client-body-temp-path=/opt/nginx/var/cache/client_temp \
+  --http-proxy-temp-path=/opt/nginx/var/cache/proxy_temp \
+  --http-fastcgi-temp-path=/opt/nginx/var/cache/fastcgi_temp \
+  --http-uwsgi-temp-path=/opt/nginx/var/cache/uwsgi_temp \
+  --http-scgi-temp-path=/opt/nginx/var/cache/scgi_temp \
   --with-mail=dynamic \
   --with-mail_ssl_module \
   --with-stream \
