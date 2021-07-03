@@ -47,9 +47,11 @@ server {
 
     ssl_certificate     $ssl_cer;
     ssl_certificate_key $ssl_key;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_ciphers         ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5;
     ssl_prefer_server_ciphers  on;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
     ssl_session_cache   shared:SSL:1m;
+    ssl_session_tickets on;
     ssl_session_timeout 5m;
 
     location / {
