@@ -20,6 +20,8 @@ server {
 
     location / {
         proxy_pass https://coturn.imssyang.com:7080;
+            proxy_set_header Origin https://coturn.imssyang.com:7080;
+            proxy_set_header Referer https://coturn.imssyang.com:7080;
     }
 }
 
