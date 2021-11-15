@@ -50,11 +50,12 @@ apt-get install libxslt-dev libgd-dev libgeoip-dev
   --with-stream_geoip_module=dynamic \
   --with-stream_ssl_preread_module \
   --with-compat \
-  --with-cc-opt="-Wimplicit-fallthrough=0" \
+  --with-cc-opt="-I/opt/libxml2/include/libxml2 -I/opt/libxslt/include -Wimplicit-fallthrough=0" \
+  --with-ld-opt="-L/opt/libxml2/lib -L/opt/libxslt/lib -lxslt -lxml2 -lm" \
   --with-pcre=/opt/pcre/archive/source/pcre-8.44 \
   --with-zlib=/opt/zlib/archive/source/zlib-1.2.11 \
   --with-openssl=/opt/openssl/archive/source/openssl-1.1.1d \
-  --add-module=/opt/nginx/archive/source/nginx-rtmp-module-1.2.1 \
+  --add-module=/opt/nginx/archive/source/nginx-rtmp-module-1.2.2 \
   --add-module=/opt/nginx/archive/source/njs-0.4.3/nginx
 
 
@@ -63,6 +64,5 @@ cd /opt/nginx
 mkdir man lib
 mv /opt/perl/man3  /opt/nginx/man
 mv /opt/perl/x86_64-linux-thread-multi  /opt/nginx/lib
-
 
 
