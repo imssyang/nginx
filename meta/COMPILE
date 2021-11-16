@@ -1,6 +1,10 @@
 
 apt-get install libxslt-dev libgd-dev libgeoip-dev
 
+tar xvf /opt/pcre/archive/source/pcre-8.44.tar.gz
+tar xvf /opt/zlib/archive/source/zlib-1.2.11.tar.gz
+tar xvf /opt/openssl/archive/source/openssl-1.1.1d.tar.gz
+
 ./configure --prefix=/opt/nginx \
   --sbin-path=/opt/nginx/bin/nginx \
   --modules-path=/opt/nginx/modules \
@@ -50,11 +54,12 @@ apt-get install libxslt-dev libgd-dev libgeoip-dev
   --with-stream_geoip_module=dynamic \
   --with-stream_ssl_preread_module \
   --with-compat \
-  --with-cc-opt="-I/opt/libxml2/include/libxml2 -I/opt/libxslt/include -Wimplicit-fallthrough=0" \
-  --with-ld-opt="-L/opt/libxml2/lib -L/opt/libxslt/lib -lxslt -lxml2 -lm" \
-  --with-pcre=/opt/pcre/archive/source/pcre-8.44 \
-  --with-zlib=/opt/zlib/archive/source/zlib-1.2.11 \
-  --with-openssl=/opt/openssl/archive/source/openssl-1.1.1d \
+  --with-debug \
+  --with-cc-opt="-I/opt/libxml2/include/libxml2 -I/opt/libxslt/include -I/opt/libgd/include -Wimplicit-fallthrough=0" \
+  --with-ld-opt="-L/opt/libxml2/lib -L/opt/libxslt/lib -L/opt/libgd/lib -lxslt -lxml2 -lm" \
+  --with-pcre=/opt/nginx/archive/source/pcre-8.44 \
+  --with-zlib=/opt/nginx/archive/source/zlib-1.2.11 \
+  --with-openssl=/opt/nginx/archive/source/openssl-1.1.1d \
   --add-module=/opt/nginx/archive/source/nginx-rtmp-module-1.2.2 \
   --add-module=/opt/nginx/archive/source/njs-0.4.3/nginx
 
