@@ -5,6 +5,9 @@ tar xvf /opt/pcre/archive/source/pcre-8.44.tar.gz
 tar xvf /opt/zlib/archive/source/zlib-1.2.11.tar.gz
 tar xvf /opt/openssl/archive/source/openssl-1.1.1d.tar.gz
 
+tar xvf /opt/nginx/archive/source/nginx-rtmp-module-1.2.2.tar.gz
+tar xvf /opt/nginx/archive/source/njs-0.4.3.tar.gz
+
 ./configure --prefix=/opt/nginx \
   --sbin-path=/opt/nginx/bin/nginx \
   --modules-path=/opt/nginx/modules \
