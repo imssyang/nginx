@@ -22,3 +22,37 @@ C:\Windows\System32\drivers\etc\hosts
 ipconfig /flushdns
 ```
 
+## 自适应比特率视频（adaptive bitrate video）
+
+[HLS vs DASH](https://www.vidbeo.com/blog/hls-vs-dash)
+
+### HTTP Live Streaming (HLS)
+
+[Apple HTTP Live Streaming](https://developer.apple.com/streaming)
+
+- HTTP 
+- H264 
+- MPEG-2 
+- 10s.ts | 10s.mp4
+- manifest.m3u8`
+
+ffmpeg -re -I bbb_sunflower_1080p_60fps_normal.mp4 -vcodec copy -loop -1 -c:a aac -b:a 160k -ar 44100 -strict -2 -f flv rtmp:192.168.5.5/live/bbb
+
+### Smooth Streaming
+
+[Microsoft Smooth Streaming](#)
+
+### HDS 
+
+[Adobe](#)
+
+### Dynamic Adaptive Streaming over HTTP (DASH)
+
+- HTTP
+- H264|H265|VP9
+- 3s.mp4
+- manifest.mpd (media presentation description)
+
+## CDN (content delivery network)
+
+

@@ -1,0 +1,13 @@
+ 
+server { 
+    listen 1935; 
+    application live { 
+        live on; 
+        interleave on;
+
+        hls on; 
+        hls_path /tmp/hls; 
+        hls_fragment 15s; 
+    } 
+} 
+
