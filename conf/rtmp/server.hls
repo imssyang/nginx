@@ -1,13 +1,26 @@
- 
-server { 
-    listen 1935; 
-    application live { 
-        live on; 
-        interleave on;
 
-        hls on; 
-        hls_path /tmp/hls; 
-        hls_fragment 15s; 
-    } 
-} 
+server {
+    listen 1935;
+    application live {
+        live on;
+        #interleave on;
+
+        #hls on;
+        #hls_path /opt/nginx/var/cache/hls_temp;
+        #hls_fragment 15s;
+        #hls_playlist_length 15s;
+        #hls_continuous on;
+        #hls_cleanup on;
+        #hls_nested on;
+
+        #recorder rec1 {
+            #record all manual;
+            record all;
+            record_path /opt/nginx/record;
+            record_suffix -%Y%m%d-%H%M%S.flv;
+            record_unique on;
+            record_interval 60s;
+        #}
+    }
+}
 

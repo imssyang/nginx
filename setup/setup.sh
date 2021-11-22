@@ -22,9 +22,24 @@ init() {
     mkdir $HOME/log
   fi
 
+  if [[ ! -d $HOME/record ]]; then
+    mkdir -p $HOME/record
+  fi
+
   if [[ ! -d $HOME/var ]]; then
-    mkdir -p $HOME/var/run
+    mkdir -p $HOME/var
+  fi
+
+  if [[ ! -d $HOME/var/cache ]]; then
     mkdir -p $HOME/var/cache
+  fi
+
+  if [[ ! -d $HOME/var/cache/hls_temp ]]; then
+    mkdir -p $HOME/var/cache/hls_temp
+  fi
+
+  if [[ ! -d $HOME/var/run ]]; then
+    mkdir -p $HOME/var/run
   fi
 
   chown -R $GROUP:$USER $HOME
