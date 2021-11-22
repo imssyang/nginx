@@ -6,6 +6,8 @@ log
 man
 modules
 record
-sample
-!sample/flv/*
+sample/*
+!sample/flv
+#!sample/**/*.md
+#!sample/**/*.txt
 var
