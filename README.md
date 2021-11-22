@@ -6,6 +6,7 @@ https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-
 http://nginx.org/en/docs/
 
 nginx -t -c nginx.conf  检查配置文件语法
+chrome://media-internals
 ```
 
 ### 本地DNS
