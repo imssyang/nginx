@@ -8,6 +8,5 @@ modules
 record
 sample/*
 !sample/flv
-#!sample/**/*.md
-#!sample/**/*.txt
+!sample/rtmp/README.md
 var
