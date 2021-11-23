@@ -52,7 +52,7 @@ server {
 
 server {
     listen       443 ssl default_server;
-    server_name  nginx.imssyang.com;
+    server_name  nginx.imssyang.com web.imssyang.com;
 
     ssl_certificate     $ssl_cer;
     ssl_certificate_key $ssl_key;

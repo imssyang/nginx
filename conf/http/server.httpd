@@ -1,6 +1,6 @@
 server {
     listen       80;
-    server_name  httpd.imssyang.com;
+    server_name  httpd.imssyang.com apache.imssyang.com;
 
     location / {
         proxy_pass http://127.0.0.1:880;
@@ -9,7 +9,7 @@ server {
 
 server {
     listen       443 ssl;
-    server_name  httpd.imssyang.com;
+    server_name  httpd.imssyang.com apache.imssyang.com;
 
     ssl_certificate     $ssl_cer;
     ssl_certificate_key $ssl_key;
