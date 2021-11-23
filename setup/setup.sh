@@ -96,6 +96,11 @@ stop() {
   show
 }
 
+log() {
+  rm -rf $HOME/log/*.log
+  systemctl restart $SERFILE
+}
+
 show() {
   ps -ef | grep $APP | grep -v 'grep'
 }
@@ -105,9 +110,10 @@ case "$1" in
   deinit) deinit ;;
   start) start ;;
   stop) stop ;;
+  log) log ;;
   show) show ;;
   *) SCRIPTNAME="${0##*/}"
-     echo "Usage: $SCRIPTNAME {init|deinit|start|stop|show}"
+     echo "Usage: $SCRIPTNAME {init|deinit|start|stop|log|show}"
      exit 3
      ;;
 esac

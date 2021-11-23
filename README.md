@@ -57,3 +57,7 @@ ffmpeg -re -I bbb_sunflower_1080p_60fps_normal.mp4 -vcodec copy -loop -1 -c:a aa
 ## CDN (content delivery network)
 
 
+## 更新日志
+vi /etc/crontab
+   0 0     * * *   root    /opt/nginx/setup/setup.sh log   #每天00:00:00时更新日志
+
