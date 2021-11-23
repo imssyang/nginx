@@ -13,14 +13,13 @@ server {
         #hls_cleanup on;
         #hls_nested on;
 
-        #recorder rec1 {
-            #record all manual;
-            record all;
+        recorder flv {
+            record all manual;
             record_path /opt/nginx/record;
             record_suffix -%Y%m%d-%H%M%S.flv;
             record_unique on;
             record_interval 60s;
-        #}
+        }
     }
 }
 

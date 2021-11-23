@@ -1,6 +1,6 @@
 server {
     listen       80;
-    server_name  lam.imssyang.com ldap.imssyang.com;
+    server_name  openldap.imssyang.com ldap.imssyang.com;
 
     location / {
         index index.html;
@@ -23,7 +23,7 @@ server {
 
 server {
     listen       443 ssl;
-    server_name  lam.imssyang.com ldap.imssyang.com;
+    server_name  openldap.imssyang.com ldap.imssyang.com;
 
     ssl_certificate     $ssl_cer;
     ssl_certificate_key $ssl_key;

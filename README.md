@@ -61,3 +61,12 @@ ffmpeg -re -I bbb_sunflower_1080p_60fps_normal.mp4 -vcodec copy -loop -1 -c:a aa
 vi /etc/crontab
    0 0     * * *   root    /opt/nginx/setup/setup.sh log   #每天00:00:00时更新日志
 
+# 推流到rtmp:192.168.5.5/live/bbb
+ffmpeg -re -i bbb_sunflower_1080p_60fps_normal.mp4 -vcodec copy -loop -1 -c:a aac -b:a 160k -ar 44100 -strict -2 -f flv rtmp:192.168.5.5/live/bbb
+
+# 手动启停录像
+curl 'http://rtmp.imssyang.com/control/record/start?app=live&name=bbb&rec=flv'
+     /opt/nginx/record/bbb-1637631889-20211123-094449.flv
+curl 'http://rtmp.imssyang.com/control/record/stop?app=live&name=bbb&rec=flv'
+     /opt/nginx/record/bbb-1637631889-20211123-094449.flv
+
