@@ -69,10 +69,11 @@ vi /etc/crontab
 ```
 ffmpeg -re -i bbb_sunflower_1080p_60fps_normal.mp4 -vcodec copy -loop -1 -c:a aac -b:a 160k -ar 44100 -strict -2 -f flv rtmp:192.168.5.5/live/bbb
 vlc rtmp://192.168.5.5/live/bbb                播放实时流
-vlc rtmp://192.168.5.5/record/60s.flv          播放flv录像文件
-vlc rtmp://192.168.5.5/sample/h264-mp3.flv     播放flv示例文件
-chrome http://rtmp.imssyang.com/flv/demo.html  播放flv示例文件（flv.js）
-chrome http://rtmp.imssyang.com/flv/index.html 播放flv示例文件（flv.js）
+vlc rtmp://192.168.5.5/record/bbb              播放实时流并自动录制flv文件
+vlc rtmp://192.168.5.5/replay/60s.flv          回放flv录像文件
+vlc rtmp://192.168.5.5/sample/h264-mp3.flv     回放flv示例文件
+chrome http://rtmp.imssyang.com/flv/demo.html  回放flv示例文件（flv.js）
+chrome http://rtmp.imssyang.com/flv/index.html 回放flv示例文件（flv.js）
 ```
 
 # RTMP控制模块

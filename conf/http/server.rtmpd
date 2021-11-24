@@ -3,9 +3,16 @@ server {
     server_name  rtmp.imssyang.com;
 
     location / {
-        root   html;
-        index  index.html index.htm index.php;
+        allow all;
+        rtmp_stat all;
+        rtmp_stat_stylesheet stat.xsl;
+        add_header Refresh '3; $request_uri';
     }
+
+    location /stat.xsl {
+        root /opt/nginx/html/rtmp;
+    }
+
 
     location /control {
         rtmp_control all;
@@ -32,8 +39,14 @@ server {
     ssl_session_timeout 5m;
 
     location / {
-        root   html;
-        index  index.html index.htm;
+        allow all;
+        rtmp_stat all;
+        rtmp_stat_stylesheet stat.xsl;
+        add_header Refresh '3; $request_uri';
+    }
+
+    location /stat.xsl {
+        root /opt/nginx/html/rtmp;
     }
 
     location /control {

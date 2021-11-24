@@ -1,0 +1,28 @@
+
+# https://github.com/arut/nginx-rtmp-module/wiki/Directives#application
+application hls {
+    live on;
+    meta on;
+    interleave off;
+    wait_key off;
+    wait_video off;
+    publish_notify on;
+    drop_idle_publisher 10m;
+    sync 300ms;
+    play_restart off;
+    idle_streams on;
+
+    hls on;
+    hls_path /opt/nginx/hls;
+    hls_fragment 10s;
+    hls_fragment_naming sequential;
+    hls_fragment_slicing aligned;
+    hls_playlist_length 10m;
+    hls_sync 100ms;
+    hls_continuous on;
+    hls_nested on;
+    hls_cleanup on;
+    hls_type live;
+    hls_keys off;
+}
+

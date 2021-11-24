@@ -1,0 +1,7 @@
+
+# https://github.com/arut/nginx-rtmp-module/wiki/Directives#application
+# vlc rtmp://imssyang.com/sample/h264-mp3.flv
+application sample {
+    play /opt/nginx/sample/flv http://localhost/sample/flv;
+}
+

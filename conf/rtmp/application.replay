@@ -1,0 +1,7 @@
+
+# https://github.com/arut/nginx-rtmp-module/wiki/Directives#application
+# vlc rtmp://imssyang.com/replay/60s.flv
+application replay {
+    play /opt/nginx/record http://rtmp.imssyang.com/record;
+}
+

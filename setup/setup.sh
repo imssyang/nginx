@@ -22,6 +22,10 @@ init() {
     mkdir $HOME/log
   fi
 
+  if [[ ! -d $HOME/hls ]]; then
+    mkdir -p $HOME/hls
+  fi
+
   if [[ ! -d $HOME/record ]]; then
     mkdir -p $HOME/record
   fi
@@ -32,10 +36,6 @@ init() {
 
   if [[ ! -d $HOME/var/cache ]]; then
     mkdir -p $HOME/var/cache
-  fi
-
-  if [[ ! -d $HOME/var/cache/hls_temp ]]; then
-    mkdir -p $HOME/var/cache/hls_temp
   fi
 
   if [[ ! -d $HOME/var/run ]]; then

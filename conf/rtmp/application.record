@@ -1,0 +1,26 @@
+
+# https://github.com/arut/nginx-rtmp-module/wiki/Directives#application
+# vlc rtmp://192.168.5.5/record/bbb
+application record {
+    live on;
+    meta on;
+    interleave off;
+    wait_key off;
+    wait_video off;
+    publish_notify on;
+    drop_idle_publisher 10m;
+    sync 300ms;
+    play_restart off;
+    idle_streams on;
+
+    record all;
+    record_path /opt/nginx/record;
+    record_suffix -%Y%m%d-%H%M%S.flv;
+    record_unique on;
+    record_append off;
+    record_max_size 100M;
+    record_max_frames 100000;
+    record_interval 60s;
+    record_notify on;
+}
+
