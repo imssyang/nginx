@@ -64,10 +64,15 @@ vi /etc/crontab
    0 0     * * *   root    /opt/nginx/setup/setup.sh log   #每天00:00:00时更新日志
 ```
 
-# 推流到rtmp:192.168.5.5/live/bbb
+# RTMP推拉流
 
 ```
 ffmpeg -re -i bbb_sunflower_1080p_60fps_normal.mp4 -vcodec copy -loop -1 -c:a aac -b:a 160k -ar 44100 -strict -2 -f flv rtmp:192.168.5.5/live/bbb
+vlc rtmp://192.168.5.5/live/bbb                播放实时流
+vlc rtmp://192.168.5.5/record/60s.flv          播放flv录像文件
+vlc rtmp://192.168.5.5/sample/h264-mp3.flv     播放flv示例文件
+chrome http://rtmp.imssyang.com/flv/demo.html  播放flv示例文件（flv.js）
+chrome http://rtmp.imssyang.com/flv/index.html 播放flv示例文件（flv.js）
 ```
 
 # RTMP控制模块
@@ -94,4 +99,5 @@ curl 'http://rtmp.imssyang.com/control/redirect/subscriber?app=live&name=bbb&add
 curl 'http://rtmp.imssyang.com/control/redirect/client?app=live&name=bbb&newname=ccc' 重定向bbb的流到ccc
      1 (1:succ，0:fail)
 ```
+
 
