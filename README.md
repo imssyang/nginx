@@ -72,6 +72,8 @@ ffmpeg -re -i bbb_sunflower_1080p_60fps_normal.mp4 -vcodec copy -loop -1 -c:a aa
 
 # RTMP控制模块
 
+https://github.com/arut/nginx-rtmp-module/wiki/Control-module
+
 ```
 curl 'http://rtmp.imssyang.com/control/record/start?app=live&name=bbb&rec=flv'  开启录像
      /opt/nginx/record/bbb-1637631889-20211123-094449.flv  (succ:返回录像文件, fail:空)
@@ -84,6 +86,12 @@ curl 'http://rtmp.imssyang.com/control/drop/subscriber?app=live&name=bbb'       
 curl 'http://rtmp.imssyang.com/control/drop/client?app=live&name=bbb&addr=192.168.5.2'  停止拉流方
      1 (1:succ，0:fail)
 curl 'http://rtmp.imssyang.com/control/drop/client?app=live&name=bbb&clientid=1'        停止拉流方
+     1 (1:succ，0:fail)
+curl 'http://rtmp.imssyang.com/control/redirect/publisher?app=live&name=bbb&newname=ccc' 重定向bbb的流到ccc
+     1 (1:succ，0:fail)
+curl 'http://rtmp.imssyang.com/control/redirect/subscriber?app=live&name=bbb&addr=192.168.5.2&newname=ccc' 重定向bbb的流到ccc
+     1 (1:succ，0:fail)
+curl 'http://rtmp.imssyang.com/control/redirect/client?app=live&name=bbb&newname=ccc' 重定向bbb的流到ccc
      1 (1:succ，0:fail)
 ```
 

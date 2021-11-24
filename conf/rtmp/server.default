@@ -1,9 +1,27 @@
 
+# https://github.com/arut/nginx-rtmp-module/wiki/Directives#application
 server {
     listen 1935;
+    timeout 60s;
+    ping 1m;
+    ping_timeout 30s;
+    max_streams 32;
+    ack_window 5000000;
+    chunk_size 4096;
+    max_message 1M;
+    buflen 1s;
+
     application live {
         live on;
-        #interleave on;
+        meta on;
+        interleave off;
+        wait_key off;
+        wait_video off;
+        publish_notify on;
+        drop_idle_publisher 10m;
+        sync 300ms;
+        play_restart off;
+        idle_streams on;
 
         #hls on;
         #hls_path /opt/nginx/var/cache/hls_temp;
@@ -18,8 +36,16 @@ server {
             record_path /opt/nginx/record;
             record_suffix -%Y%m%d-%H%M%S.flv;
             record_unique on;
+            record_append off;
+            record_max_size 100M;
+            record_max_frames 100000;
             record_interval 60s;
+            record_notify on;
         }
+    }
+
+    application sample {
+        play /opt/nginx/sample http://localhost/sample;
     }
 }
 
