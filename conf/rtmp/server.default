@@ -44,8 +44,12 @@ server {
         }
     }
 
+    application record {
+        play /opt/nginx/record http://rtmp.imssyang.com/record;
+    }
+
     application sample {
-        play /opt/nginx/sample http://localhost/sample;
+        play /opt/nginx/sample/flv http://localhost/sample/flv;
     }
 }
 
