@@ -21,8 +21,11 @@ application hls {
     hls_sync 100ms;
     hls_continuous on;
     hls_nested on;
-    hls_cleanup on;
+    hls_cleanup off;
     hls_type live;
     hls_keys off;
+    hls_key_path /opt/nginx/hls/keys;
+    hls_key_url https://rtmp.imssyang.com/keys;
+    hls_fragments_per_key 10;
 }
 
