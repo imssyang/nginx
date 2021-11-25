@@ -8,14 +8,26 @@ server {
     add_header Cache-Control no-store;
 
     location / {
+        proxy_pass http://rtmp.imssyang.com/stat;
+    }
+
+    # curl 'https://rtmp.imssyang.com/stat'
+    location /stat {
         allow all;
         rtmp_stat all;
         rtmp_stat_stylesheet stat.xsl;
-        add_header Refresh '3; $request_uri';
+        add_header Refresh "3; $request_uri";
     }
 
     location /stat.xsl {
         root /opt/nginx/html/rtmp;
+    }
+
+    # curl 'https://rtmp.imssyang.com/nclients?app=live&name=bbb'
+    location /nclients {
+        proxy_pass http://rtmp.imssyang.com/stat;
+        xslt_stylesheet /opt/nginx/html/rtmp/nclients.xsl app='$arg_app' name='$arg_name';
+        add_header Refresh "3; $request_uri";
     }
 
     location /control {
@@ -76,14 +88,24 @@ server {
     ssl_session_timeout 5m;
 
     location / {
+        proxy_pass https://rtmp.imssyang.com/stat;
+    }
+
+    location /stat {
         allow all;
         rtmp_stat all;
         rtmp_stat_stylesheet stat.xsl;
-        add_header Refresh '3; $request_uri';
+        add_header Refresh "3; $request_uri";
     }
 
     location /stat.xsl {
         root /opt/nginx/html/rtmp;
+    }
+
+    location /nclients {
+        proxy_pass https://rtmp.imssyang.com/stat;
+        xslt_stylesheet /opt/nginx/html/rtmp/nclients.xsl app='$arg_app' name='$arg_name';
+        add_header Refresh "3; $request_uri";
     }
 
     location /control {
