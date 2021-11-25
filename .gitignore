@@ -1,5 +1,6 @@
 archive
 bin
+dash
 hls
 html/webrtc
 lib
@@ -11,3 +12,4 @@ sample/*
 !sample/flv
 !sample/rtmp/README.md
 var
+
