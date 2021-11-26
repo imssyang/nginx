@@ -2,6 +2,7 @@ archive
 bin
 dash
 hls
+!html/hls
 html/webrtc
 lib
 log
