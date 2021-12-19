@@ -36,12 +36,12 @@ server {
 }
 
 server {
-    listen       443 ssl;
+    listen       443 ssl http2;
     server_name  imss.cc;
 
     ssl_certificate     $ssl_imss_cc_cer;
     ssl_certificate_key $ssl_imss_cc_key;
-    ssl_ciphers         ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
     ssl_prefer_server_ciphers  on;
     ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
     ssl_session_cache   shared:SSL:1m;
@@ -66,7 +66,7 @@ server {
     location /vs {
         proxy_redirect off;
         proxy_http_version 1.1;
-        proxy_pass http://127.0.0.1:51080; 
+        proxy_pass http://127.0.0.1:61080; 
         proxy_set_header Host $http_host;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
