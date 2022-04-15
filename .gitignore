@@ -11,6 +11,7 @@ modules
 record
 sample/*
 !sample/flv
+!sample/lol/README.md
 !sample/mp4/README.md
 var
 
