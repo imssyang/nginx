@@ -1,9 +1,16 @@
+upstream coturn {
+    server 127.0.0.1:7080;
+    keepalive 30;
+}
+
 server {
     listen       80;
     server_name  coturn.imssyang.com;
 
     location / {
-        proxy_pass https://coturn.imssyang.com:7080;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_pass https://coturn;
     }
 }
 
@@ -19,9 +26,9 @@ server {
     ssl_session_timeout 5m;
 
     location / {
-        proxy_pass https://coturn.imssyang.com:7080;
-            proxy_set_header Origin https://coturn.imssyang.com:7080;
-            proxy_set_header Referer https://coturn.imssyang.com:7080;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_pass https://coturn;
     }
 }
 

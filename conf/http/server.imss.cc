@@ -33,6 +33,16 @@ server {
         add_header Access-Control-Allow-Methods 'GET,POST,OPTIONS';
         add_header Access-Control-Allow-Headers 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
     }
+
+    # For v2ray-plugin for test
+    location /vs {
+        proxy_redirect off;
+        proxy_http_version 1.1;
+        proxy_pass http://127.0.0.1:61080; 
+        proxy_set_header Host $http_host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
 }
 
 server {
