@@ -1,7 +1,7 @@
 [Unit]
 Description=nginx - high performance web server
 Documentation=https://nginx.org/en/docs/
-After=network-online.target remote-fs.target nss-lookup.target
+After=network-online.target remote-fs.target nss-lookup.target bind.service
 Wants=network-online.target
 
 [Service]
