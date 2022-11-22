@@ -1,6 +1,6 @@
 server {
     listen       80;
-    server_name  flask.imssyang.com;
+    server_name  flaskr.imssyang.com;
 
     location / {
         proxy_pass http://127.0.0.1:8008;
@@ -13,7 +13,7 @@ server {
 
 server {
     listen       443 ssl;
-    server_name  flask.imssyang.com;
+    server_name  flaskr.imssyang.com;
 
     ssl_certificate     $ssl_cer;
     ssl_certificate_key $ssl_key;
