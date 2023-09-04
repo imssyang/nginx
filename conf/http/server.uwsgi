@@ -1,6 +1,6 @@
 server {
     listen       80;
-    server_name  uwsgi.imssyang.com flask.imssyang.com;
+    server_name  uwsgi.imssyang.com flask-old.imssyang.com;
 
     location / {
         include /opt/nginx/conf/base/uwsgi_params;
@@ -16,7 +16,7 @@ server {
 
 server {
     listen       443 ssl;
-    server_name  uwsgi.imssyang.com flask.imssyang.com;
+    server_name  uwsgi.imssyang.com flask-old.imssyang.com;
 
     ssl_certificate     $ssl_cer;
     ssl_certificate_key $ssl_key;

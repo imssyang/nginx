@@ -1,0 +1,38 @@
+upstream gunicorn {
+    server 127.0.0.1:2030;
+    keepalive 30;
+}
+
+server {
+    listen       80;
+    server_name  flask.imssyang.com;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://gunicorn;
+    }
+}
+
+server {
+    listen       443 ssl;
+    server_name  flask.imssyang.com;
+
+    ssl_certificate     $ssl_cer;
+    ssl_certificate_key $ssl_key;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+    ssl_session_cache   shared:SSL:1m;
+    ssl_session_timeout 5m;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://gunicorn;
+    }
+}
+
