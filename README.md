@@ -132,9 +132,9 @@ tar xvf njs-0.8.5.tar.gz
   --with-http_v3_module \
   --with-http_realip_module \
   --with-http_addition_module \
-  --with-http_xslt_module=dynamic \
-  --with-http_image_filter_module=dynamic \
-  --with-http_geoip_module=dynamic \
+  --with-http_xslt_module \
+  --with-http_image_filter_module \
+  --with-http_geoip_module \
   --with-http_sub_module \
   --with-http_dav_module \
   --with-http_flv_module \
@@ -147,20 +147,31 @@ tar xvf njs-0.8.5.tar.gz
   --with-http_degradation_module \
   --with-http_slice_module \
   --with-http_stub_status_module \
-  --with-http_perl_module=dynamic \
-  --with-mail=dynamic \
+  --with-http_perl_module \
+  --with-mail \
   --with-mail_ssl_module \
   --with-stream \
   --with-stream_ssl_module \
   --with-stream_realip_module \
-  --with-stream_geoip_module=dynamic \
+  --with-stream_geoip_module \
   --with-stream_ssl_preread_module \
   --with-compat \
   --with-cc-opt="-Wno-error=unused-but-set-variable -Wno-error=compound-token-split-by-macro" \
   --add-module=/opt/nginx/archive/nginx-rtmp-module-1.2.2 \
   --add-module=/opt/nginx/archive/njs-0.8.5/nginx
 
+// Compile
 make -j8
+
+// Create Perl directory with write permission
+sudo mkdir /Library/Perl/5.34/darwin-thread-multi-2level
+sudo chmod g+w /Library/Perl/5.34/darwin-thread-multi-2level
+sudo mkdir /usr/local/share/man/man3
+sudo chmod g+w /usr/local/share/man/man3
+sudo mkdir -p /Library/Perl/Updates/5.34.1/darwin-thread-multi-2level
+sudo chmod g+w /Library/Perl/Updates/5.34.1/darwin-thread-multi-2level
+
+// Install
 make install
 ```
 

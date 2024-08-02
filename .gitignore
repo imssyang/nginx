@@ -1,17 +1,17 @@
-archive
-bin
-dash
-hls
+archive/
+bin/
+dash/
+hls/
 !html/hls
 html/webrtc
-lib
-log
-man
-modules
-record
+lib/
+logs/
+man/
+modules/
+record/
 sample/*
 !sample/flv
 !sample/lol/README.md
 !sample/mp4/README.md
-var
+var/
 

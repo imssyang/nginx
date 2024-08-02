@@ -46,8 +46,9 @@ server {
 }
 
 server {
-    listen       443 ssl http2;
+    listen       443 ssl;
     server_name  imss.cc;
+    http2        on;
 
     ssl_certificate     $ssl_imss_cc_cer;
     ssl_certificate_key $ssl_imss_cc_key;

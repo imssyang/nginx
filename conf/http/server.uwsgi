@@ -3,12 +3,12 @@ server {
     server_name  uwsgi.imssyang.com flask-old.imssyang.com;
 
     location / {
-        include /opt/nginx/conf/base/uwsgi_params;
+        include /opt/nginx/conf/uwsgi_params;
         uwsgi_pass 127.0.0.1:2030;
     }
 
     location ~ ^/hello/?(.*)$ {
-        include /opt/nginx/conf/base/uwsgi_params;
+        include /opt/nginx/conf/uwsgi_params;
         uwsgi_param SCRIPT_NAME /hello;
         uwsgi_pass unix:/tmp/hello.sock;
     }
@@ -26,7 +26,7 @@ server {
     ssl_session_timeout 5m;
 
     location / {
-        include /opt/nginx/conf/base/uwsgi_params;
+        include /opt/nginx/conf/uwsgi_params;
         uwsgi_pass 127.0.0.1:2030;
     }
 }
