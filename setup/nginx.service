@@ -5,8 +5,10 @@ After=network-online.target remote-fs.target nss-lookup.target bind.service
 Wants=network-online.target
 
 [Service]
-Type=forking
-PIDFile=/opt/nginx/var/run/nginx.pid
+Type=simple
+User=root
+Group=root
+PIDFile=/opt/nginx/logs/nginx.pid
 ExecStartPre=/opt/nginx/bin/nginx -t -c /opt/nginx/conf/nginx.conf
 ExecStart=/opt/nginx/bin/nginx -c /opt/nginx/conf/nginx.conf
 ExecReload=/bin/kill -s HUP $MAINPID

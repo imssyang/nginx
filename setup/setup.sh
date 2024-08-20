@@ -2,8 +2,8 @@
 
 APP=nginx
 HOME=/opt/$APP
-GROUP=$APP
-USER=$APP
+USER=nobody
+GROUP=root
 SYSD=/etc/systemd/system
 SERFILE=nginx.service
 

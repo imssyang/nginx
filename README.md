@@ -178,35 +178,35 @@ make install
 ## Linux
 
 ```bash
-apt-get install libxslt-dev libgd-dev libgeoip-dev
-
-tar xvf /opt/pcre/archive/source/pcre-8.44.tar.gz
-tar xvf /opt/zlib/archive/source/zlib-1.2.11.tar.gz
-tar xvf /opt/openssl/archive/source/openssl-1.1.1d.tar.gz
+apt-get install libxslt1-dev libgd-dev libgeoip-dev libperl-dev
 
 tar xvf /opt/nginx/archive/source/nginx-rtmp-module-1.2.2.tar.gz
-tar xvf /opt/nginx/archive/source/njs-0.4.3.tar.gz
+tar xvf /opt/nginx/archive/source/njs-0.8.5.tar.gz
 
 ./configure --prefix=/opt/nginx \
   --sbin-path=/opt/nginx/bin/nginx \
   --modules-path=/opt/nginx/modules \
   --conf-path=/opt/nginx/conf/nginx.conf \
-  --error-log-path=/opt/nginx/log/error.log \
-  --pid-path=/opt/nginx/var/run/nginx.pid \
-  --lock-path=/opt/nginx/var/run/nginx.lock \
-  --user=nginx \
-  --group=nginx \
+  --pid-path=/opt/nginx/logs/nginx.pid \
+  --lock-path=/opt/nginx/logs/nginx.lock \
+  --error-log-path=/opt/nginx/logs/error.log \
+  --http-log-path=/opt/nginx/logs/access.log \
+  --http-client-body-temp-path=/opt/nginx/logs/client \
+  --http-proxy-temp-path=/opt/nginx/logs/proxy \
+  --http-fastcgi-temp-path=/opt/nginx/logs/fastcgi \
+  --http-uwsgi-temp-path=/opt/nginx/logs/uwsgi \
+  --http-scgi-temp-path=/opt/nginx/logs/scgi \
   --with-select_module \
   --with-poll_module \
   --with-threads \
-  --with-file-aio \
   --with-http_ssl_module \
   --with-http_v2_module \
+  --with-http_v3_module \
   --with-http_realip_module \
   --with-http_addition_module \
-  --with-http_xslt_module=dynamic \
-  --with-http_image_filter_module=dynamic \
-  --with-http_geoip_module=dynamic \
+  --with-http_xslt_module \
+  --with-http_image_filter_module \
+  --with-http_geoip_module \
   --with-http_sub_module \
   --with-http_dav_module \
   --with-http_flv_module \
@@ -219,36 +219,18 @@ tar xvf /opt/nginx/archive/source/njs-0.4.3.tar.gz
   --with-http_degradation_module \
   --with-http_slice_module \
   --with-http_stub_status_module \
-  --with-http_perl_module=dynamic \
-  --with-perl_modules_path=/opt/perl \
-  --with-perl=/opt/perl/bin/perl \
-  --http-log-path=/opt/nginx/log/access.log \
-  --http-client-body-temp-path=/opt/nginx/var/cache/client_temp \
-  --http-proxy-temp-path=/opt/nginx/var/cache/proxy_temp \
-  --http-fastcgi-temp-path=/opt/nginx/var/cache/fastcgi_temp \
-  --http-uwsgi-temp-path=/opt/nginx/var/cache/uwsgi_temp \
-  --http-scgi-temp-path=/opt/nginx/var/cache/scgi_temp \
-  --with-mail=dynamic \
+  --with-http_perl_module \
+  --with-mail \
   --with-mail_ssl_module \
   --with-stream \
   --with-stream_ssl_module \
   --with-stream_realip_module \
-  --with-stream_geoip_module=dynamic \
+  --with-stream_geoip_module \
   --with-stream_ssl_preread_module \
   --with-compat \
-  --with-debug \
-  --with-cc-opt="-I/opt/libxml2/include/libxml2 -I/opt/libxslt/include -I/opt/libgd/include -Wimplicit-fallthrough=0" \
-  --with-ld-opt="-L/opt/libxml2/lib -L/opt/libxslt/lib -L/opt/libgd/lib -lxslt -lxml2 -lm" \
-  --with-pcre=/opt/nginx/archive/source/pcre-8.44 \
-  --with-zlib=/opt/nginx/archive/source/zlib-1.2.11 \
-  --with-openssl=/opt/nginx/archive/source/openssl-1.1.1d \
-  --add-module=/opt/nginx/archive/source/nginx-rtmp-module-1.2.2 \
-  --add-module=/opt/nginx/archive/source/njs-0.4.3/nginx
-
-// Compile-install-BUG
-cd /opt/nginx
-mkdir man lib
-mv /opt/perl/man3  /opt/nginx/man
-mv /opt/perl/x86_64-linux-thread-multi  /opt/nginx/lib
+  --with-cc-opt="-Wimplicit-fallthrough=0" \
+  --with-ld-opt="-L/usr/lib/x86_64-linux-gnu" \
+  --add-module=/opt/nginx/archive/nginx-rtmp-module-1.2.2 \
+  --add-module=/opt/nginx/archive/njs-0.8.5/nginx
 ```
 
