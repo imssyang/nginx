@@ -178,10 +178,11 @@ make install
 ## Linux
 
 ```bash
-apt-get install libxslt1-dev libgd-dev libgeoip-dev libperl-dev
+apt-get install libxml2 libxslt1-dev libgd-dev libgeoip-dev libperl-dev
 
-tar xvf /opt/nginx/archive/source/nginx-rtmp-module-1.2.2.tar.gz
-tar xvf /opt/nginx/archive/source/njs-0.8.5.tar.gz
+https://github.com/nginx/nginx/releases/download/release-1.28.0/nginx-1.28.0.tar.gz
+https://github.com/arut/nginx-rtmp-module/archive/refs/tags/v1.2.2.zip
+https://github.com/nginx/njs/archive/refs/tags/0.9.1.zip
 
 ./configure --prefix=/opt/nginx \
   --sbin-path=/opt/nginx/bin/nginx \
@@ -231,6 +232,6 @@ tar xvf /opt/nginx/archive/source/njs-0.8.5.tar.gz
   --with-cc-opt="-Wimplicit-fallthrough=0" \
   --with-ld-opt="-L/usr/lib/x86_64-linux-gnu" \
   --add-module=/opt/nginx/archive/nginx-rtmp-module-1.2.2 \
-  --add-module=/opt/nginx/archive/njs-0.8.5/nginx
+  --add-module=/opt/nginx/archive/njs-0.9.1/nginx
 ```
 

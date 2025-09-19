@@ -1,18 +1,31 @@
+# Stop dance for nginx
+# =======================
+#
+# ExecStop sends SIGQUIT (graceful stop) to the nginx process.
+# If, after 5s (--retry QUIT/5) nginx is still running, systemd takes control
+# and sends SIGTERM (fast shutdown) to the main process.
+# After another 5s (TimeoutStopSec=5), and if nginx is alive, systemd sends
+# SIGKILL to all the remaining processes in the process group (KillMode=mixed).
+#
+# nginx signals reference doc:
+# http://nginx.org/en/docs/control.html
+#
 [Unit]
-Description=nginx - high performance web server
-Documentation=https://nginx.org/en/docs/
-After=network-online.target remote-fs.target nss-lookup.target bind9.service
+Description=A high performance web server and a reverse proxy server
+Documentation=man:nginx(8)
+After=network-online.target remote-fs.target nss-lookup.target
 Wants=network-online.target
+ConditionFileIsExecutable=/opt/nginx/bin/nginx
 
 [Service]
-Type=simple
-User=root
-Group=root
+Type=forking
 PIDFile=/opt/nginx/logs/nginx.pid
-ExecStartPre=/opt/nginx/bin/nginx -t -c /opt/nginx/conf/nginx.conf
-ExecStart=/opt/nginx/bin/nginx -c /opt/nginx/conf/nginx.conf
-ExecReload=/bin/kill -s HUP $MAINPID
-ExecStop=/bin/kill -s TERM $MAINPID
+ExecStartPre=/opt/nginx/bin/nginx -t -q -g 'daemon on; master_process on;' -c /opt/nginx/conf/nginx.conf
+ExecStart=/opt/nginx/bin/nginx -g 'daemon on; master_process on;' -c /opt/nginx/conf/nginx.conf
+ExecReload=/opt/nginx/bin/nginx -g 'daemon on; master_process on;' -c /opt/nginx/conf/nginx.conf -s reload
+ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile =/opt/nginx/logs/nginx.pid
+TimeoutStopSec=5
+KillMode=mixed
 
 [Install]
 WantedBy=multi-user.target
