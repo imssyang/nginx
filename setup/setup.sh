@@ -63,7 +63,8 @@ deinit() {
     rm -rf $HOME/var
   fi
 
-  chown -R root:root $HOME
+  #chown -R root:root $HOME
+  chown -R imssyang:imssyang $HOME
 
   if [[ -s $SYSD/$SERFILE ]]; then
     systemctl disable $SERFILE
