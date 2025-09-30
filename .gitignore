@@ -6,6 +6,7 @@ hls/
 html/webrtc
 lib/
 logs/
+luajit/
 man/
 modules/
 record/

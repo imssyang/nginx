@@ -177,14 +177,29 @@ make install
 
 ## Linux
 
+https://github.com/openresty/lua-nginx-module
+
 ```bash
 apt-get install libxml2 libxslt1-dev libgd-dev libgeoip-dev libperl-dev
 
-https://github.com/nginx/nginx/releases/download/release-1.28.0/nginx-1.28.0.tar.gz
-https://github.com/arut/nginx-rtmp-module/archive/refs/tags/v1.2.2.zip
+https://github.com/nginx/nginx/archive/refs/tags/release-1.27.5.zip
 https://github.com/nginx/njs/archive/refs/tags/0.9.1.zip
+https://github.com/openresty/lua-resty-lrucache/archive/refs/tags/v0.15.zip
+https://github.com/openresty/lua-resty-core/archive/refs/tags/v0.1.31.zip
+https://github.com/openresty/lua-nginx-module/archive/refs/tags/v0.10.28.zip
+https://github.com/openresty/luajit2/archive/refs/tags/v2.1-20250826.zip
+https://github.com/vision5/ngx_devel_kit/archive/refs/tags/v0.3.4.zip
+https://github.com/arut/nginx-rtmp-module/archive/refs/tags/v1.2.2.zip
 
-./configure --prefix=/opt/nginx \
+vi luajit2-2.1-20250826/Makefile
+  export PREFIX=/opt/nginx/luajit
+make -j10
+make install
+ln -s /opt/nginx/luajit/bin/luajit /opt/nginx/bin/luajit
+export LUAJIT_LIB=/opt/nginx/luajit/lib
+export LUAJIT_INC=/opt/nginx/luajit/include/luajit-2.1
+
+./auto/configure --prefix=/opt/nginx \
   --sbin-path=/opt/nginx/bin/nginx \
   --modules-path=/opt/nginx/modules \
   --conf-path=/opt/nginx/conf/nginx.conf \
@@ -230,9 +245,18 @@ https://github.com/nginx/njs/archive/refs/tags/0.9.1.zip
   --with-stream_ssl_preread_module \
   --with-compat \
   --with-cc-opt="-Wimplicit-fallthrough=0" \
-  --with-ld-opt="-L/usr/lib/x86_64-linux-gnu" \
-  --add-module=/opt/nginx/archive/nginx-rtmp-module-1.2.2 \
-  --add-module=/opt/nginx/archive/njs-0.9.1/nginx
+  --with-ld-opt="-Wl,-rpath,/opt/nginx/luajit/lib" \
+  --add-module=/opt/nginx/archive/njs-0.9.1/nginx \
+  --add-module=/opt/nginx/archive/ngx_devel_kit-0.3.4 \
+  --add-module=/opt/nginx/archive/lua-nginx-module-0.10.28 \
+  --add-module=/opt/nginx/archive/nginx-rtmp-module-1.2.2
+
+cd lua-resty-core
+make install PREFIX=/opt/nginx
+cd lua-resty-lrucache
+make install PREFIX=/opt/nginx
+-L/usr/lib/x86_64-linux-gnu
+
 ```
 
 # Openresty
