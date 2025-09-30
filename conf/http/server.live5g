@@ -1,0 +1,97 @@
+upstream osscluster{
+    server 127.0.0.1:9199;
+}
+
+upstream m3u8cluster{
+    server 192.168.144.1:8800;
+}
+
+server {
+    rewrite_log  on;
+    listen       80;
+    server_name  live5g.imssyang.com;
+    set $hls_path http://127.0.0.1:80;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        #proxy_pass http://live5g;
+    }
+
+    location ~ \.audio\.m3u8$ {
+        default_type application/vnd.apple.mpegurl;
+        content_by_lua '
+            local base_m3u8_url = ngx.var.uri:gsub(".audio.m3u8", ".m3u8")      
+            if ngx.var.args == nil then
+                base_m3u8_url = string.format("%s", base_m3u8_url)
+            else
+                base_m3u8_url = string.format("%s?%s", base_m3u8_url, ngx.var.args)
+            end
+            --ngx.print("base m3u8 url: ", base_m3u8_url)
+            --ngx.print("\\n")
+            
+            local res = ngx.location.capture("/inner"..base_m3u8_url)
+
+            --ngx.print("res status: ", res.status)
+            --ngx.print("\\n")
+            if res.status == 200 then
+                --local new_body = res.body:gsub(".ts", ".aac")
+                local new_body = res.body:gsub(".ts", ".aac")
+                ngx.print(new_body)
+            else
+                ngx.exit(res.status)
+            end
+        ';
+    }
+
+    location ~ (\.aac)$ {
+        rewrite ^(.*)\.aac$ $1.ts$is_args$args break;
+
+        ngx_hls_audio_track;
+        ngx_hls_audio_track_rootpath $hls_path;
+        #ngx_hls_audio_track_output_format "mpegts";
+        #ngx_hls_audio_track_output_header "video/MP2T";
+        ngx_hls_audio_track_output_format "adts";
+        ngx_hls_audio_track_output_header "audio/aac";
+    
+        expires 10m;
+    }
+
+    location ~* /inner/live/(.*)\.m3u8 {
+        proxy_pass http://m3u8cluster/livechl/$1.m3u8?$args;
+    }
+
+    location ~* /live/(.*)\.m3u8 {
+        rewrite_by_lua_file lib/lua/live5g/auth.lua;
+        #content_by_lua_file lib/lua/live5g/auth.lua;
+        proxy_pass http://m3u8cluster/livechl/$1.m3u8?$args;
+    }
+
+    location ~* /livebucket(.*)\.ts {
+        #rewrite_by_lua_file "/opt/openresty/nginx/lua/auth.lua";
+        proxy_pass http://osscluster$uri?$args;
+    }
+}
+
+server {
+    listen       443 ssl;
+    server_name  live5g.imssyang.com;
+
+    ssl_certificate     $ssl_cer;
+    ssl_certificate_key $ssl_key;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+    ssl_session_cache   shared:SSL:1m;
+    ssl_session_timeout 5m;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        #proxy_pass http://live5g;
+    }
+}
+

@@ -190,6 +190,7 @@ https://github.com/openresty/lua-nginx-module/archive/refs/tags/v0.10.28.zip
 https://github.com/openresty/luajit2/archive/refs/tags/v2.1-20250826.zip
 https://github.com/vision5/ngx_devel_kit/archive/refs/tags/v0.3.4.zip
 https://github.com/arut/nginx-rtmp-module/archive/refs/tags/v1.2.2.zip
+https://github.com/flavioribeiro/nginx-audio-track-for-hls-module/archive/refs/tags/0.3.zip
 
 vi luajit2-2.1-20250826/Makefile
   export PREFIX=/opt/nginx/luajit
@@ -198,6 +199,16 @@ make install
 ln -s /opt/nginx/luajit/bin/luajit /opt/nginx/bin/luajit
 export LUAJIT_LIB=/opt/nginx/luajit/lib
 export LUAJIT_INC=/opt/nginx/luajit/include/luajit-2.1
+
+兼容ffmpeg8头文件和nginx模块规范（依赖ffmpeg）
+vi nginx-audio-track-for-hls-module-0.3/ngx_http_aac_module.h
+  #include <ngx_config.h>
+  #include <ngx_core.h>
+  #include <ngx_http.h>
+  #include <string.h>
+  static int write_packet(void *opaque, const uint8_t *buf, int buf_size);
+vi nginx-audio-track-for-hls-module-0.3/ngx_http_aac_module.c
+  static int write_packet(void *opaque, const uint8_t *buf, int buf_size);
 
 ./auto/configure --prefix=/opt/nginx \
   --sbin-path=/opt/nginx/bin/nginx \
@@ -244,19 +255,19 @@ export LUAJIT_INC=/opt/nginx/luajit/include/luajit-2.1
   --with-stream_geoip_module \
   --with-stream_ssl_preread_module \
   --with-compat \
-  --with-cc-opt="-Wimplicit-fallthrough=0" \
-  --with-ld-opt="-Wl,-rpath,/opt/nginx/luajit/lib" \
+  --with-cc-opt="-Wimplicit-fallthrough=0 -I/opt/ffmpeg/include" \
+  --with-ld-opt="-Wl,-rpath,/opt/nginx/luajit/lib -Wl,-rpath,/opt/ffmpeg/lib -L/opt/ffmpeg/lib -lavcodec -lavformat -lavutil -lswscale" \
   --add-module=/opt/nginx/archive/njs-0.9.1/nginx \
   --add-module=/opt/nginx/archive/ngx_devel_kit-0.3.4 \
   --add-module=/opt/nginx/archive/lua-nginx-module-0.10.28 \
-  --add-module=/opt/nginx/archive/nginx-rtmp-module-1.2.2
+  --add-module=/opt/nginx/archive/nginx-rtmp-module-1.2.2 \
+  --add-module=/opt/nginx/archive/nginx-audio-track-for-hls-module-0.3
 
 cd lua-resty-core
 make install PREFIX=/opt/nginx
 cd lua-resty-lrucache
 make install PREFIX=/opt/nginx
 -L/usr/lib/x86_64-linux-gnu
-
 ```
 
 # Openresty
