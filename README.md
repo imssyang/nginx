@@ -235,3 +235,55 @@ https://github.com/nginx/njs/archive/refs/tags/0.9.1.zip
   --add-module=/opt/nginx/archive/njs-0.9.1/nginx
 ```
 
+# Openresty
+
+https://openresty.org/download/openresty-1.27.1.2.tar.gz
+
+```bash
+./configure --prefix=/opt/nginx \
+  --sbin-path=/opt/nginx/bin/nginx \
+  --modules-path=/opt/nginx/modules \
+  --conf-path=/opt/nginx/conf/nginx.conf \
+  --pid-path=/opt/nginx/logs/nginx.pid \
+  --lock-path=/opt/nginx/logs/nginx.lock \
+  --error-log-path=/opt/nginx/logs/error.log \
+  --http-log-path=/opt/nginx/logs/access.log \
+  --http-client-body-temp-path=/opt/nginx/logs/client \
+  --http-proxy-temp-path=/opt/nginx/logs/proxy \
+  --http-fastcgi-temp-path=/opt/nginx/logs/fastcgi \
+  --http-uwsgi-temp-path=/opt/nginx/logs/uwsgi \
+  --http-scgi-temp-path=/opt/nginx/logs/scgi \
+  --with-select_module \
+  --with-poll_module \
+  --with-threads \
+  --with-http_ssl_module \
+  --with-http_v2_module \
+  --with-http_v3_module \
+  --with-http_realip_module \
+  --with-http_addition_module \
+  --with-http_xslt_module \
+  --with-http_image_filter_module \
+  --with-http_geoip_module \
+  --with-http_sub_module \
+  --with-http_dav_module \
+  --with-http_flv_module \
+  --with-http_mp4_module \
+  --with-http_gunzip_module \
+  --with-http_gzip_static_module \
+  --with-http_auth_request_module \
+  --with-http_random_index_module \
+  --with-http_secure_link_module \
+  --with-http_degradation_module \
+  --with-http_slice_module \
+  --with-http_stub_status_module \
+  --with-http_perl_module \
+  --with-mail \
+  --with-mail_ssl_module \
+  --with-stream \
+  --with-stream_ssl_module \
+  --with-stream_realip_module \
+  --with-stream_geoip_module \
+  --with-stream_ssl_preread_module \
+  --with-compat \
+  --with-cc-opt="-Wimplicit-fallthrough=0"
+```
